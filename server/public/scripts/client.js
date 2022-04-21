@@ -25,7 +25,7 @@ function setupClickListeners() {
       notes: 'testName',
     };
     // call saveKoala with the new obejct
-    saveKoala( koalaToSend );
+    getKoalas( koalaToSend );
   }); 
 }
 
@@ -37,6 +37,19 @@ function getKoalas(){
 
 function createKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
+  $.ajax({
+    method: 'POST',
+    url: '/koalas'
+  }).then(function(response){
+    getKoalas();
+
+  }).catch(error){(
+    console.log(error)
+  )}
+
+
+
+
  
 }
 
