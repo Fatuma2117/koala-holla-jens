@@ -1,4 +1,6 @@
 console.log( 'js' );
+import swal from 'sweetalert';
+swal("Hello world!");
 
 $( document ).ready( function(){
   console.log( 'JQ' );
@@ -57,8 +59,20 @@ function getKoalas(){
 
 function createKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
-  // ajax call to server to get koalas
  
 }
 
+function updateKoala(){
+  $.ajax({
+    method: 'PUT',
+    url: '/koalas/:id'
+  })
+  .then( function (response) {
 
+  getKoalas()
+  })
+  .catch( function (response){
+    swal('')
+  }
+  )
+}
