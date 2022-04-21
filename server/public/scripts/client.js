@@ -43,15 +43,11 @@ function createKoala( newKoala ){
   }).then(function(response){
     getKoalas();
 
-  }).catch(error){(
+  }).catch(function(error){
     console.log(error)
-  )}
+  })
+};
 
-
-
-
- 
-}
 
 function updateKoala(){
 
