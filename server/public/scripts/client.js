@@ -41,5 +41,16 @@ function createKoala( newKoala ){
 }
 
 function updateKoala(){
+  $.ajax({
+    method: 'PUT',
+    url: '/koalas/:id'
+  })
+  .then( function (response) {
 
+  getKoalas()
+  })
+  .catch( function (response){
+    swal('')
+  }
+  )
 }
