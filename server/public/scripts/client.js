@@ -50,7 +50,6 @@ function getKoalas(){
           <td>${koala.notes}</td>
         </tr>
       `);
-      swal('Your Koala list is up to date');
     }
   }).catch(function(error) {
     console.log(error);
