@@ -1,11 +1,9 @@
 console.log( 'js' );
-import swal from 'sweetalert';
-swal("Hello world!");
 
 $( document ).ready( function(){
   console.log( 'JQ' );
   // Establish Click Listeners
-  setupClickListeners()
+  setupClickListeners();
   // load existing koalas on page load
   getKoalas();
 
@@ -18,12 +16,13 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      readyForTransfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val(),
     };
+    console.log(koalaToSend);
     // call saveKoala with the new obejct
     createKoala( koalaToSend );
   }); 
@@ -36,7 +35,8 @@ function getKoalas(){
   $.ajax({
     method: 'GET',
     url: '/koalas'
-  }).then(function(response) {
+  })
+  .then(function(response) {
     console.log("GET /songs response", response);
     // append data to the DOM
     for (let koala of response) {
@@ -58,11 +58,13 @@ function getKoalas(){
   // end getKoalas
 
 function createKoala( newKoala ){
-  console.log( 'in saveKoala', newKoala );
+  console.log( 'in createKoala', newKoala );
   $.ajax({
     method: 'POST',
-    url: '/koalas'
+    url: '/koalas',
+    data: newKoala
   }).then(function(response){
+    console.log(response);
     getKoalas();
 
   }).catch(function(error){

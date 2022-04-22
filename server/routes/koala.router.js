@@ -1,8 +1,7 @@
-const { Router } = require('express');
 const express = require('express');
-const { Pool } = require('pg/lib');
-const koalaRouter = express.Router();
-
+const router = express.Router();
+// const koalaRouter = express.Router();
+console.log('in router');
 // DB CONNECTION
 const pg = require('pg');
 
@@ -31,8 +30,8 @@ router.get('/', (req, res) => {
     `;
     pool.query(queryText)
       .then((dbResult) => {
-        // console.log('here are the rows that our SQL query asked for:');
-        // console.log(dbResult.rows);
+        console.log('here are the rows that our SQL query asked for:');
+        console.log(dbResult.rows);
         res.send(dbResult.rows);
       })
       .catch((dbError) => {
@@ -58,7 +57,8 @@ router.post('/', (req,res)=>{
     req.body.ready_to_transfer,
     req.body.notes
   ];
-Pool.query(sqlQuery, sqlValues) 
+  console.log(sqlValues);
+pool.query(sqlQuery, sqlValues) 
 .then((dbResult) => {
     res.sendStatus(201);
   })
@@ -89,4 +89,4 @@ router.put('/:id', (req, res) => {
 
 // DELETE
 
-module.exports = koalaRouter;
+module.exports = router;
