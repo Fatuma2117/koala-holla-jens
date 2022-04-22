@@ -1,9 +1,7 @@
-const { Router } = require('express');
 const express = require('express');
-const { sendStatus } = require('express/lib/response');
-const { Pool } = require('pg/lib');
-const koalaRouter = express.Router();
-
+const router = express.Router();
+// const koalaRouter = express.Router();
+console.log('in router');
 // DB CONNECTION
 const pg = require('pg');
 
@@ -32,8 +30,8 @@ router.get('/', (req, res) => {
     `;
     pool.query(queryText)
       .then((dbResult) => {
-        // console.log('here are the rows that our SQL query asked for:');
-        // console.log(dbResult.rows);
+        console.log('here are the rows that our SQL query asked for:');
+        console.log(dbResult.rows);
         res.send(dbResult.rows);
       })
       .catch((dbError) => {
@@ -45,7 +43,30 @@ router.get('/', (req, res) => {
 
 
 // POST
-
+router.post('/', (req,res)=>{
+    let sqlQuery = `
+        INSERT INTO "koalas"
+        ("name", "gender", "age", "ready_to_transfer", "notes")
+            VALUES
+            ($1,$2,$3,$4,$5)
+  `;
+  let sqlValues = [
+    req.body.name,
+    req.body.gender,
+    req.body.age,
+    req.body.ready_to_transfer,
+    req.body.notes
+  ];
+  console.log(sqlValues);
+pool.query(sqlQuery, sqlValues) 
+.then((dbResult) => {
+    res.sendStatus(201);
+  })
+  .catch((dbError) => {
+    console.log('error in POST /koalas db request:');
+    console.log(dbError);
+  })
+});
 
 // PUT
 router.put('/:id', (req, res) => {
@@ -68,4 +89,4 @@ router.put('/:id', (req, res) => {
 
 // DELETE
 
-module.exports = koalaRouter;
+module.exports = router;
