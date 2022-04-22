@@ -26,7 +26,7 @@ function setupClickListeners() {
     // call saveKoala with the new obejct
     createKoala( koalaToSend );
   }); 
-  $('.updateButton').on('click', updateKoala);
+  $(document).on('click', '.updateButton', updateKoala);
 }
 
 function getKoalas(){
