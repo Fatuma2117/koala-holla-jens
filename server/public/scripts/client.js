@@ -74,9 +74,10 @@ function createKoala( newKoala ){
 
 
 function updateKoala(){
+  let a = $(this).closest('tr').data('id')
   $.ajax({
     method: 'PUT',
-    url: '/koalas/:id'
+    url: `/koalas/:${a}`
   })
   .then( function (response) {
 
